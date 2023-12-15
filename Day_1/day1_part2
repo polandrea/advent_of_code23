@@ -1,0 +1,39 @@
+import re
+
+
+INPUT =  open("input.txt", "r")
+
+
+def extract_numbers_and_names(input_string):
+    name_numbers = {
+        'one': "o1e", 'two': "t2o", 'three': "t3e", 'four': "f4r", 'five': 'f5e',
+        'six': 's6x', 'seven': "s7n", 'eight': 'e8t', 'nine': "n9e"
+    }
+
+    for key in name_numbers:
+        input_string = input_string.replace(key, name_numbers[key])
+
+    return input_string
+
+
+def remove_letters(string):
+    result = []
+    for char in string:
+        if char.isnumeric() == True:
+            result.append(char)
+    return result
+
+
+def main(input_list):
+    result = 0
+    for input_string in INPUT:
+        extracted = extract_numbers_and_names(input_string)
+        num_list = remove_letters(''.join(str(x) for x in extracted))
+        first = num_list[0]
+        last = num_list[-1]
+        result += int(first + last)
+    print(result)
+
+
+if __name__=='__main__':
+	main(INPUT)

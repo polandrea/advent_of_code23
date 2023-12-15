@@ -1,0 +1,23 @@
+INPUT =  open("input.txt", "r")
+
+
+def remove_letters(string):
+    result = []
+    for char in string:
+        if char.isnumeric() == True:
+            result.append(char)
+    return result
+
+
+def main(list):
+    result = 0
+    for string in list:
+        num_list = remove_letters(string)
+        first = num_list[0]
+        last = num_list[-1]
+        result += int(first + last)
+    print(result)
+
+
+if __name__=='__main__':
+    main(INPUT)
