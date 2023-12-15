@@ -1,0 +1,43 @@
+INPUT =  open("input.txt", "r")
+
+
+def card_matches(card):
+    matching = 0
+    winning_numbers = card.split("|")[0].split()
+    your_numbers = card.split("|")[1].split()
+    for num in your_numbers:
+        if num in winning_numbers:
+            matching += 1
+    return matching
+
+
+def make_dict(lines):
+    dict = {}
+    for x in range(len(lines)):
+        dict[x+1] = 1
+    return dict
+
+
+def update_dict(dict, matches, card):
+    new_dict = dict
+    for x in range(matches):
+            new_dict[int(card)+(x+1)] = new_dict[int(card)+(x+1)] + 1 * new_dict[int(card)]
+    return new_dict
+
+
+def main(input_list):
+    result = 0
+    lines = input_list.read().split('\n')
+    card_dict =  make_dict(lines)
+    for line in lines:
+        card_num = line.split(':')[0].split()[1]
+        number_list = line.split(':')[1]
+        matches = card_matches(number_list)
+        card_dict = update_dict(card_dict, matches, card_num)
+    for key in card_dict:
+        result +=  card_dict[key]
+    print(result)
+
+
+if __name__=='__main__':
+    main(INPUT)

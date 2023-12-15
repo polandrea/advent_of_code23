@@ -1,0 +1,35 @@
+INPUT =  open("input.txt", "r")
+
+
+def card_matches(card):
+    matching = 0
+    winning_numbers = card.split("|")[0].split()
+    your_numbers = card.split("|")[1].split()
+    for num in your_numbers:
+        if num in winning_numbers:
+            matching += 1
+    return matching
+
+
+def card_worth(matches):
+    worth = 0
+    if matches == 1:
+        worth = 1
+    elif matches > 1:
+        worth = 2**(matches-1)
+    return worth
+
+
+def main(input_list):
+    result = 0
+    lines = input_list.read().split('\n')
+    for line in lines:
+        number_list = line.split(':')[1]
+        matches = card_matches(number_list)
+        worth = card_worth(matches)
+        result += worth
+    print(result)
+
+
+if __name__=='__main__':
+    main(INPUT)
